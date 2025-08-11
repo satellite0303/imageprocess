@@ -1,0 +1,204 @@
+/* Reset & base */
+/* 讓所有元素的框線計算包含 padding 和 border，並清除 margin 和 padding */
+* {
+    box-sizing: border-box; /* 盒模型計算包含 border 和 padding */
+    margin: 0;              /* 清除所有元素的外距 */
+    padding: 0;             /* 清除所有元素的內距 */
+}
+
+/* 設定 body 的基本字體、背景色、文字顏色，並用 flex 置中內容 */
+body {
+    font-family: sans-serif;       /* 使用無襯線字體 */
+    background: #f5f6f8;           /* 淺灰藍色背景 */
+    color: #333;                   /* 文字顏色深灰 */
+    display: flex;                 /* 使用彈性盒模型 */
+    flex-direction: column;        /* 直向排列 */
+    align-items: center;           /* 水平置中 */
+    padding: 2rem 1rem;            /* 上下內距 2rem，左右 1rem */
+}
+
+/* 主內容區 */
+.main {
+    flex: 1;                      /* 擴展佔滿剩餘空間 */
+    width: 100%;                  /* 寬度滿版 */
+    max-width: 900px;             /* 最大寬度 900px */
+    margin: 0 auto;               /* 水平置中 */
+    min-height: 90vh;             /* 最小高度為視窗高度的90%，避免 flex:1 沒基礎高度 */
+}
+
+/* 標題 */
+h1 {
+    text-align: center;           /* 文字置中 */
+    margin-bottom: 1rem;          /* 下方外距 1rem */
+}
+
+/* 控制面板外框 */
+.controls {
+    background: #ffffff;          /* 白色背景 */
+    border-radius: 8px;           /* 圓角 8px */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 淡淡陰影 */
+    padding: 1.5rem;              /* 內距 1.5rem */
+    display: grid;                /* 使用 CSS Grid */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* 自動調整欄寬，最小 240px */
+    gap: 1rem;                   /* 格子間隔 1rem */
+    margin-bottom: 1.5rem;       /* 下方外距 1.5rem */
+}
+
+/* 控制面板中 label */
+.controls label {
+    display: block;               /* 區塊元素，獨佔一行 */
+    font-size: 0.9rem;            /* 字體大小 0.9rem */
+    margin-bottom: 0.4rem;        /* 下方外距 0.4rem */
+    color: #555;                  /* 深灰文字 */
+}
+
+/* input[type="file"], input[type="number"], select 的樣式 */
+.controls input[type="file"],
+.controls input[type="number"],
+.controls select {
+    width: 100%;                 /* 寬度滿版 */
+    padding: 0.5rem;             /* 內距 0.5rem */
+    border: 1px solid #ccd0d5;  /* 淡灰色邊框 */
+    border-radius: 4px;          /* 圓角 4px */
+}
+
+/* checkbox 調整大小及間距 */
+.controls input[type="checkbox"] {
+    transform: scale(1.2);       /* 放大 1.2 倍 */
+    margin-right: 0.5rem;        /* 右側外距 0.5rem */
+    vertical-align: middle;      /* 與文字垂直置中 */
+}
+
+/* checkbox 文字標籤排版 */
+.controls .checkbox-label {
+    display: flex;               /* 使用彈性盒模型 */
+    align-items: center;         /* 垂直置中 */
+    font-size: 0.9rem;           /* 字體大小 0.9rem */
+    color: #555;                 /* 深灰文字 */
+}
+
+/* 控制面板按鈕 */
+.controls button {
+    width: 100%;                 /* 寬度滿版 */
+    padding: 0.75rem;            /* 內距 0.75rem */
+    background: #0078d4;         /* 藍色背景 */
+    color: #fff;                 /* 白色文字 */
+    border: none;                /* 無邊框 */
+    border-radius: 4px;          /* 圓角 4px */
+    font-size: 1rem;             /* 字體大小 1rem */
+    cursor: pointer;             /* 滑鼠變手指 */
+}
+
+/* 按鈕 hover 狀態 */
+.controls button:hover {
+    background: #005a9e;         /* 深藍背景 */
+}
+
+/* checkbox 標籤重複定義，讓排版更精細 */
+.checkbox-label {
+    display: inline-flex;        /* 行內彈性盒 */
+    vertical-align: middle;      /* 垂直置中 */
+    align-items: center;         /* 元素垂直置中 */
+    gap: 0.5rem;                 /* 元素間隔 0.5rem */
+    font-size: 0.9rem;           /* 字體大小 0.9rem */
+}
+
+/* checkbox 內的小按鈕樣式 */
+.checkbox-label .small-btn {
+    vertical-align: middle;      /* 垂直置中 */
+    padding: 0.25em 0.5em;       /* 內距上下 0.25em，左右 0.5em */
+    font-size: 0.85em;           /* 字體大小 0.85em */
+    background: #0a6ed1;         /* 藍色背景 */
+    border: 1px solid #ccd0d5;  /* 淡灰邊框 */
+    border-radius: 3px;          /* 圓角 3px */
+    color: #333;                 /* 深灰文字 */
+    cursor: pointer;             /* 滑鼠變手指 */
+}
+
+/* 小按鈕 hover 狀態 */
+.checkbox-label .small-btn:hover {
+    background: #005a9e;         /* 深藍背景 */
+}
+
+/* 預覽區與輸出區 */
+.preview,
+.output {
+    background: #ffffff;          /* 白色背景 */
+    border-radius: 8px;           /* 圓角 8px */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 淡陰影 */
+    padding: 1rem;                /* 內距 1rem */
+    margin-bottom: 1.5rem;        /* 下方外距 1.5rem */
+}
+
+/* 預覽圖片 */
+.preview img {
+    max-width: 100%;              /* 最大寬度 100% */
+    display: block;               /* 區塊顯示 */
+    margin: 0 auto;               /* 水平置中 */
+    border-radius: 4px;           /* 圓角 4px */
+}
+
+/* 輸出區樣式 */
+.output {
+    white-space: pre-wrap;        /* 保留空白並自動換行 */
+    font-family: monospace;       /* 等寬字體 */
+    max-height: 300px;            /* 最大高度 300px */
+    overflow: auto;               /* 超出顯示滾動條 */
+}
+
+/* 複製與下載按鈕區域 */
+.actions {
+    display: flex;                /* 使用彈性盒模型 */
+    gap: 1rem;                   /* 按鈕間距 1rem */
+    justify-content: center;      /* 置中排列 */
+    margin-bottom: 2rem;          /* 下方外距 2rem */
+}
+
+/* 複製與下載按鈕 */
+.actions button {
+    flex: 1;                     /* 平分寬度 */
+    padding: 0.75rem;            /* 內距 0.75rem */
+    background: #0a6ed1;         /* 藍色背景 */
+    color: #fff;                 /* 白字 */
+    border: none;                /* 無邊框 */
+    border-radius: 4px;          /* 圓角 4px */
+    font-size: 0.95rem;          /* 字體大小 0.95rem */
+    cursor: pointer;             /* 滑鼠變手指 */
+}
+
+/* 按鈕 hover 狀態 */
+.actions button:hover {
+    background: #084c9b;         /* 深藍背景 */
+}
+
+/* 語言按鈕切換按鈕區 */
+footer {
+    display: flex;               /* 使用彈性盒模型 */
+    gap: 1rem;                  /* 按鈕間距 1rem */
+    justify-content: center;     /* 置中排列 */
+    margin-top: auto;            /* 推到頁面底部 */
+}
+
+/* 語言按鈕 */
+footer button {
+    padding: 0.5rem 1.25rem;     /* 內距上下 0.5rem，左右 1.25rem */
+    border: 1px solid #ccd0d5;   /* 淡灰色邊框 */
+    border-radius: 4px;          /* 圓角 4px */
+    background: #fff;            /* 白色背景 */
+    cursor: pointer;             /* 滑鼠變手指 */
+    font-size: 0.9rem;           /* 字體大小 0.9rem */
+}
+
+/* 被選中的語言按鈕樣式 */
+footer button.selected {
+    background: #0078d4;         /* 藍色背景 */
+    color: #fff;                 /* 白字 */
+    border-color: #0078d4;       /* 邊框同藍色 */
+}
+
+/* 頁腳文字 */
+.site-footer {
+  text-align: center;            /* 文字置中 */
+  font-size: 0.85rem;            /* 字體大小 0.85rem */
+  color: #555;                   /* 深灰文字 */
+}

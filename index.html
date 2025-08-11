@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Image Processor</title>
+    <link rel = "icon" href = "star.png"/>
+    <link rel="stylesheet" href="sc.css">
+  </head>
+
+  <body>
+    <div class="main">
+      <h1 id="title">Image Processor</h1>
+
+      <div class="controls">
+        <div>
+          <label id="uploadLabel" for="imageInput">Upload Image</label>
+          <input type="file" id="imageInput" accept="image/*" />
+        </div>
+
+        <div>
+          <label id="widthLabel" for="widthInput">Width</label>
+          <input type="number" id="widthInput" />
+        </div>
+
+        <div>
+          <label id="heightLabel" for="heightInput">Height</label>
+          <input type="number" id="heightInput" />
+        </div>
+
+        <div class="checkbox-label">
+          <label for="autoScale">
+            <input type="checkbox" id="autoScale" checked />
+            <span id="autoScaleLabel">Keep Ratio</span>
+          </label>
+          <button type="button" id="resetSizeBtn" class="small-btn">
+            Reset Size / 重置回原先大小
+          </button>
+        </div>
+
+
+        <div>
+          <label id="modeLabel" for="modeSelect">Mode</label>
+          <select id="modeSelect">
+            <option value="0">RGB256</option>
+            <option value="1">RGB565</option>
+            <option value="2">B/W </option>
+            <option value="3">Bitmap (1-bit)</option>
+          </select>
+        </div>
+
+        <div>
+          <label id="backendLabel" for="backendSelect">Backend</label>
+          <select id="backendSelect">
+            <option value="adafruit">Adafruit</option>
+            <option value="lcd">LCD</option>
+          </select>
+        </div>
+
+        <div>
+          <label id="thresholdLabel" for="thresholdInput">Black Threshold(for Bitmap (1-bit) )</label>
+          <input type="number" id="thresholdInput" value="128" min="0" max="255" disabled/>
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <button id="processBtn">Process Image</button>
+        </div>
+      </div>
+
+      <div class="preview">
+        <img id="preview" src="" alt="Preview" />
+      </div>
+
+      <div class="output" id="output">Output will appear here</div>
+
+      <div class="actions">
+        <button id="copyBtn">Copy Output</button>
+        <button id="downloadBtn">Download .h File</button>
+      </div>
+
+      <footer>
+        <button id="langEn" class="selected">English</button>
+        <button id="langZh">繁體中文</button>
+      </footer>
+    </div>
+
+    <footer class="site-footer">
+      製作單位：楊梅高中<br>
+      製作人：梁高瑋、郭定宇
+    </footer>
+
+    <!-- Pyodide & logic -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"></script>
+    <script src="sj.js"></script>
+  </body>
+</html>
