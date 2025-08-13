@@ -191,7 +191,7 @@ def image_to_h(data, w=None, h=None,mode=1,black = 50,backmode="lcd"):# backmode
                     bit_count = 0#目前這個bytes存了幾個bi
                     for x in range(w):
                         pixel = pixels[x, y]
-                        bit = 0 if pixel < black else 1   # 黑=1 白=0 
+                        bit = 0 if pixel < black else 1   # 黑=0 白=1
                         byte_val = (byte_val << 1) | bit
                         bit_count += 1
                         if bit_count == 8:
@@ -200,7 +200,7 @@ def image_to_h(data, w=None, h=None,mode=1,black = 50,backmode="lcd"):# backmode
                             bit_count = 0
                     if bit_count > 0:#不足8bis就補齊(補0)
                         byte_val <<= (8 - bit_count)
-                    out.append(f"0x{byte_val:02X}")
+                        out.append(f"0x{byte_val:02X}")
             case 2:#轉灰階圖(轉灰階然後依值轉成rgb565)
                 for y in range(h):
                     for x in range(w):
