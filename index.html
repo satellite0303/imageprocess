@@ -26,17 +26,11 @@
           <label id="heightLabel" for="heightInput">Height</label>
           <input type="number" id="heightInput" />
         </div>
-
-        <div class="checkbox-label">
-          <label for="autoScale">
-            <input type="checkbox" id="autoScale" checked />
-            <span id="autoScaleLabel">Keep Ratio</span>
-          </label>
-          <button type="button" id="resetSizeBtn" class="small-btn">
-            Reset Size / 重置回原先大小
-          </button>
+        
+        <div>
+          <label id="thresholdLabel" for="thresholdInput">Black Threshold(for Bitmap (1-bit) )</label>
+          <input type="number" id="thresholdInput" value="128" min="0" max="255" disabled/>
         </div>
-
 
         <div>
           <label id="modeLabel" for="modeSelect">Mode</label>
@@ -56,10 +50,20 @@
           </select>
         </div>
 
-        <div>
-          <label id="thresholdLabel" for="thresholdInput">Black Threshold(for Bitmap (1-bit) )</label>
-          <input type="number" id="thresholdInput" value="128" min="0" max="255" disabled/>
+        <div class="checkbox-label">
+          <label for="autoScale">
+            <input type="checkbox" id="autoScale" checked />
+            <span id="autoScaleLabel">Keep Ratio</span>
+          </label>
+          <label for="flip">
+            <input type="checkbox" id="flip"  />
+            <span id="flipLabel">flip</span>
+          </label>
+          <button type="button" id="resetSizeBtn" class="small-btn">
+            Reset Size / 重置回原先大小
+          </button>
         </div>
+
 
         <div style="grid-column: 1 / -1;">
           <button id="processBtn">Process Image</button>

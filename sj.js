@@ -11,7 +11,8 @@ const texts = {// 語言切換與多國語系處理
     processBtn: "Process Image",    
     output: "Output will appear here",
     copyBtn: "Copy Output",         
-    downloadBtn: "Download .h File"  
+    downloadBtn: "Download .h File"  ,
+    flipLabel:"flip"
   },
   zh: {
     title: "圖片處理器",
@@ -25,7 +26,8 @@ const texts = {// 語言切換與多國語系處理
     processBtn: "處理圖片",
     output: "輸出將顯示在此",
     copyBtn: "複製輸出",
-    downloadBtn: "下載輸出.h"
+    downloadBtn: "下載輸出.h",
+    flipLabel:"反轉顏色"
   }
 };
 
@@ -67,6 +69,7 @@ const widthInput = document.getElementById("widthInput");
 const heightInput = document.getElementById("heightInput");
 const autoScale = document.getElementById("autoScale");
 const resetSizeBtn = document.getElementById("resetSizeBtn");
+const checkbox = document.querySelector("#flip");
 
 let origWidth = 0;  // 原始圖片寬度
 let origHeight = 0; // 原始圖片高度
@@ -158,14 +161,17 @@ let pyodideReady = loadPyodide({
   await py.runPythonAsync(`
 import micropip
 await micropip.install("pillow")              # 安裝 Pillow (PIL 圖像處理套件)
-from PIL import Image
+from PIL import Image, ImageOps
 import io, base64
 
 
 
 
-def image_to_h(data, w=None, h=None,mode=1,black = 50,backmode="lcd"):# backmode:adafruit or lcd
-    img = Image.open(io.BytesIO(data)) .convert('L'if mode >1 else 'RGB')#開啟圖片並轉全彩(三種色都用8bi存)或灰階
+def image_to_h(data, w=None, h=None,mode=1,black = 50,backmode="lcd",invert=False):# backmode:adafruit or lcd
+    img = Image.open(io.BytesIO(data)) 
+    if invert:#開啟圖片並轉全彩(三種色都用8bi存)或灰階 還有反轉顏色
+      img = ImageOps.invert(img.convert('L'if mode >1 else 'RGB'))
+    else:img = img.convert('L'if mode >1 else 'RGB')
 
     if w and h:# 若有指定大小則縮放
         img = img.resize((w, h), Image.Resampling.LANCZOS)#縮放大小，用Resampling.lanczos的方式重取樣來製作 品質高，適合縮小圖片，能保留更多細節，邊緣比較平滑
@@ -272,6 +278,7 @@ document.getElementById("processBtn").onclick = async () => { // 取得按鈕並
   const mode = +modeSelect.value; // 取得模式並轉數字
   const backend = backendSelect.value; // 取得後端選項字串
   const black = +document.getElementById("thresholdInput").value; // 閾值並轉數字
+  console.log(checkbox.checked); // true 或 false
 
   const bytes = new Uint8Array(await file.arrayBuffer()); // 讀檔案轉成 Uint8Array（byte 陣列）
   const py = await pyodideReady; // 等待 Pyodide 載入完成
@@ -283,8 +290,9 @@ document.getElementById("processBtn").onclick = async () => { // 取得按鈕並
   py.globals.set("mode", mode); // 設定模式
   py.globals.set("black", black); // 設定閾值
   py.globals.set("backend", backend); // 設定後端
+  py.globals.set("invert", checkbox.checked); // 設定反白
 
-  await py.runPythonAsync(`b64, out = image_to_h(data, w, h, mode, black, backend)`); // 呼叫 Python 函式處理圖片
+  await py.runPythonAsync(`b64, out = image_to_h(data, w, h, mode, black, backend,invert)`); // 呼叫 Python 函式處理圖片
 
   const b64 = py.globals.get("b64"); // 取得 base64 編碼圖片
   const outA = py.globals.get("out").toJs(); // 取得輸出陣列並轉成 JS 陣列
